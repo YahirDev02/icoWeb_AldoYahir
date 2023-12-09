@@ -1,18 +1,9 @@
-const mysqlConexion = require("../services/database");
+const {userModel} = require('../utils/user');
 
-const createUser = async (req, res) => {
-    try {
-        const db = mysqlConexion();
-        const {user, password} = req.body;
-        db.connect(error =>{
-            if(error) throw error;
-        })
-        db.query(`INSERT INTO user(user, password) VALUES ('${user}', ${password});`);
-    } catch (error) {
-        
-    }
+//Método post
+function createUser(db, params){
+    return userModel(db).createUser(params);
 }
-//git init
-//git add .
-//git commit -m "Creando mi función user"
-//git push -u origin "nombre de la rama"
+module.exports = {
+    createUser
+}
